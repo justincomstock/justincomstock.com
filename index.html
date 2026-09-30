@@ -2,7 +2,61 @@
 <!-- Made in Framer · framer.com ✨ -->
 <!-- Published Sep 8, 2026, 9:14 PM UTC -->
 <html lang="en-US">
-<head>
+<head><style id="hex-clean-guard">a [data-framer-name="Awards"], a [data-framer-name="[SOTM]"], a [data-framer-name="awards"],
+*:has(> [data-framer-name="Awards:"]) { display: none !important; }</style><script id="hex-clean-guard-js">(function(){
+  var CFG = {"hidden": [{"slug": "coding-course-app", "title": "Coding Course App", "dribbble": null}], "gone": [{"slug": "g-w-studios", "to": "https://dribbble.com/shots/25023595-Flight-Finder-Mobile-Airline-Booking"}, {"slug": "nft-marketplace", "to": "https://dribbble.com/shots/23190779-NFT-Marketplace-Mobile-App"}, {"slug": "assemblyai", "to": "https://dribbble.com/shots/19994596-E-Learning-Courses-Dashboard"}, {"slug": "swedish-stamp-club", "to": "https://dribbble.com/shots/23711209-Neobanking-Mobile-App"}, {"slug": "kanbany", "to": "https://dribbble.com/shots/23919093-Kanbany-Vision-Pro-meets-Kanban"}, {"slug": "oppioo", "to": "https://dribbble.com/shots/19502734-Peak-Health"}, {"slug": "coding-course-app", "to": "/projects"}], "hideInternal": false};
+  var titles = {}, hrefs = [], redirects = {};
+  CFG.hidden.forEach(function(p){ titles[p.title.toLowerCase()] = 1; if (p.dribbble) hrefs.push(p.dribbble); });
+  CFG.gone.forEach(function(p){ redirects["/projects/" + p.slug] = p.to; });
+  var AWARD = /\[(SOTA|FWA|SOTM|Webby)/i;
+  function target(path){ path = path.replace(/\.html$/, "").replace(/\/+$/, ""); return redirects[path]; }
+  function go(){ var t = target(location.pathname); if (t) { location.replace(t); return true; } }
+  if (go()) return;
+  var hiddenCards = [], ready = false;
+  function hide(el){ if (el && el.style.display !== "none") el.style.setProperty("display", "none", "important"); }
+  function hideCard(el){ if (!el) return; hide(el); if (hiddenCards.indexOf(el) < 0) hiddenCards.push(el); }
+  // Framer lays cards out in fixed-height columns/rows; once a card is hidden, collapse wrappers it leaves empty
+  // (no visible text or image). Only after DOMContentLoaded, so a half-parsed wrapper is never mistaken for empty.
+  function empty(e){ if ((e.innerText || "").trim()) return false;
+    var imgs = e.querySelectorAll("img"); for (var i = 0; i < imgs.length; i++) if (imgs[i].offsetParent) return false; return true; }
+  function collapse(){ hiddenCards.forEach(function(c){
+    for (var e = c.parentElement, n = 0; e && n < 5 && e !== document.body && e.id !== "main"; e = e.parentElement, n++) {
+      if (e.matches('[data-framer-name="More Projects"], [data-framer-name="Projects"]')) break;
+      if (e.style.display !== "none" && getComputedStyle(e).display === "none") continue; // other breakpoint's variant
+      if (!empty(e)) break; hide(e); }
+  }); }
+  function card(el){ var a = el.closest("a"); return a ? (a.parentElement || a) : null; }
+  function sweep(root){
+    if (!root.querySelectorAll) return;
+    root.querySelectorAll("a").forEach(function(a){
+      var h = a.getAttribute("href") || "";
+      var internal = h && !/^[a-z]+:/i.test(h) && CFG.hideInternal && target(new URL(h, location.href).pathname);
+      if (internal || hrefs.some(function(x){ return h === x; })) hideCard(a.parentElement || a);
+    });
+    root.querySelectorAll("h1,h2,h3,h4,p").forEach(function(t){
+      var s = (t.textContent || "").trim();
+      if (titles[s.toLowerCase()] && t.closest("a")) hideCard(card(t));
+      else if (AWARD.test(s) && s.length < 60) hide(t.closest("[data-framer-name]") || t);
+    });
+    // "More Project's" strip: hide the whole section when every card in it is hidden
+    root.querySelectorAll('[data-framer-name="More Projects"]').forEach(function(sec){
+      var vis = 0;
+      sec.querySelectorAll("a[href]").forEach(function(a){ for (var e = a; e && e !== sec; e = e.parentElement) if (e.style.display === "none") return; vis++; });
+      if (!vis) hide(sec);
+    });
+    if (ready) collapse();
+  }
+  new MutationObserver(function(){ sweep(document); })
+    .observe(document.documentElement, { childList: true, subtree: true, characterData: true, attributes: true, attributeFilter: ["href"] });
+  document.addEventListener("click", function(e){
+    var a = e.target.closest && e.target.closest("a[href]"); if (!a) return;
+    var u = new URL(a.getAttribute("href"), location.href); if (u.origin !== location.origin) return;
+    var t = target(u.pathname); if (t) { e.preventDefault(); e.stopImmediatePropagation(); location.href = t; }
+  }, true);
+  ["pushState", "replaceState"].forEach(function(k){ var o = history[k]; history[k] = function(){ var r = o.apply(this, arguments); go(); return r; }; });
+  addEventListener("popstate", go);
+  document.addEventListener("DOMContentLoaded", function(){ ready = true; sweep(document); });
+})();</script>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
 	
