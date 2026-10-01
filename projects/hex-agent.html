@@ -1,0 +1,288 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hex - Justin Comstock's Portfolio</title>
+<meta name="description" content="Designing an AI agent you can live with: a personal agent that sees a day and acts in it, and the interaction rules that keep it useful, quiet and safe.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Hex - Justin Comstock's Portfolio">
+<meta property="og:description" content="Designing an AI agent you can live with.">
+<link rel="canonical" href="https://justincomstock.com/projects/hex-agent">
+<link href="/_assets/framerusercontent.com/images/M7mDvaOK4lSJHl07cDSRUI0EYN8.png" rel="icon">
+<style>
+@font-face { font-family: "General Sans"; font-weight: 400; font-display: swap; src: url("/_assets/framerusercontent.com/third-party-assets/fontshare/wf/MFQT7HFGCR2L5ULQTW6YXYZXXHMPKLJ3/YWQ244D6TACUX5JBKATPOW5I5MGJ3G73/7YY3ZAAE3TRV2LANYOLXNHTPHLXVWTKH.woff2") format("woff2"); }
+@font-face { font-family: "General Sans"; font-weight: 500; font-display: swap; src: url("/_assets/framerusercontent.com/third-party-assets/fontshare/wf/3RZHWSNONLLWJK3RLPEKUZOMM56GO4LJ/BPDRY7AHVI3MCDXXVXTQQ76H3UXA63S3/SB2OEB6IKZPRR6JT4GFJ2TFT6HBB6AZN.woff2") format("woff2"); }
+@font-face { font-family: "General Sans"; font-weight: 600; font-display: swap; src: url("/_assets/framerusercontent.com/third-party-assets/fontshare/wf/K46YRH762FH3QJ25IQM3VAXAKCHEXXW4/ISLWQPUZHZF33LRIOTBMFOJL57GBGQ4B/3ZLMEXZEQPLTEPMHTQDAUXP5ZZXCZAEN.woff2") format("woff2"); }
+@font-face { font-family: "Azeret Mono"; font-weight: 400; font-display: swap; src: url("/_assets/fonts.gstatic.com/s/azeretmono/v21/3XFuErsiyJsY9O_Gepph-HHhZfk.woff2") format("woff2"); }
+
+:root { --ink: #0d0d0d; --muted: #bdbdbd; --soft: #6f6f6f; --bg: #fafafa; --surface: #f0f0f0; --line: #e5e5e5; --pad: 20px; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --ink: #fff; --bg: #0d0d0d; --surface: #1d1d1d; --line: #282828; --soft: #9a9a9a; --muted: #5c5c5c; } }
+:root[data-theme="dark"] { --ink: #fff; --bg: #0d0d0d; --surface: #1d1d1d; --line: #282828; --soft: #9a9a9a; --muted: #5c5c5c; }
+
+* { box-sizing: border-box; }
+body { margin: 0; overflow-x: hidden; background: var(--bg); color: var(--ink); font-family: "General Sans", system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+a { color: inherit; }
+img { display: block; max-width: 100%; height: auto; }
+.mono { font-family: "Azeret Mono", ui-monospace, monospace; font-size: 12px; line-height: 20px; letter-spacing: -.05em; text-transform: uppercase; }
+
+/* nav: the same two pills and connect button as the rest of the site */
+.nav { position: fixed; top: 0; left: 0; right: 0; z-index: 10; display: flex; align-items: center; gap: 10px; padding: var(--pad); pointer-events: none; }
+.nav > * { pointer-events: auto; }
+.pill { height: 40px; display: inline-flex; align-items: center; gap: 12px; padding: 0 16px; border-radius: 6px; background: var(--surface); color: var(--ink);
+  font-size: 16px; text-decoration: none; text-transform: uppercase; border: 0; cursor: pointer; font-family: inherit; }
+.pill.logo { font-weight: 600; letter-spacing: .02em; }
+.pill.menu { width: 256px; justify-content: space-between; }
+.pill.icon { width: 40px; padding: 0; justify-content: center; }
+.pill svg { width: 18px; height: 18px; }
+.nav .sp { flex: 1; }
+
+.hero { margin: 80px var(--pad) 0; height: 580px; background: #06080c; overflow: hidden; }
+.hero img { width: 100%; height: 100%; object-fit: cover; }
+
+.head { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 574px); gap: 40px; padding: 44px var(--pad) 60px; border-bottom: 1px solid var(--line); }
+h1 { margin: 0; font-size: 48px; line-height: 1; font-weight: 600; letter-spacing: -.04em; text-transform: uppercase; }
+.meta { margin: 40px 0 0; display: grid; grid-template-columns: 113px minmax(0, 1fr); row-gap: 8px; max-width: 560px; }
+.meta dt { color: var(--muted); } .meta dd { margin: 0; }
+.intro { margin: 2px 0 0; }
+
+/* the story */
+.story { padding: 0 var(--pad); }
+.sec { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); gap: 40px; padding: 72px 0 0; }
+.sec > .mono { color: var(--soft); padding-top: 8px; }
+.sec h2 { margin: 0 0 20px; font-size: 32px; line-height: 1.12; font-weight: 500; letter-spacing: -.03em; max-width: 21ch; }
+.sec h3 { margin: 56px 0 12px; font-size: 22px; line-height: 1.25; font-weight: 500; letter-spacing: -.02em; max-width: 30ch; }
+.sec h3:first-child { margin-top: 0; }
+.sec p { margin: 0 0 16px; font-size: 18px; line-height: 1.55; max-width: 62ch; color: var(--ink); }
+.sec p.q { padding-left: 16px; border-left: 2px solid var(--ink); }
+.sec p .mono { text-transform: none; font-size: 15px; letter-spacing: -.03em; line-height: inherit; }
+.cost { color: var(--soft) !important; }
+
+.rule { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); margin: 28px 0 8px; }
+.rule div { background: var(--bg); padding: 18px 18px 22px; }
+.rule b { display: block; font-size: 20px; font-weight: 500; letter-spacing: -.02em; margin: 26px 0 6px; }
+.rule span { color: var(--soft); } .rule i { font-style: normal; color: var(--muted); }
+
+.quiet { margin: 28px 0 8px; border-top: 1px solid var(--line); max-width: 760px; }
+.quiet div { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 20px; padding: 12px 0; border-bottom: 1px solid var(--line); }
+.quiet span:first-child { color: var(--soft); }
+
+figure { margin: 72px 0 0; }
+figure.in { margin: 32px 0 8px; }
+.frame { background: #06080c; overflow: hidden; }
+figcaption { margin-top: 12px; color: var(--soft); max-width: 720px; }
+.four { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--pad); }
+.four .frame { border-radius: 14px; }
+.four p { margin: 12px 0 0; color: var(--soft); }
+
+.disclaimer { margin: 72px 0 0 auto; width: 50%; padding: 0 var(--pad) 0 0; color: var(--ink); }
+.back { display: inline-block; margin: 56px var(--pad) 0; }
+
+footer { padding: 120px var(--pad) 40px; }
+.f-top { display: flex; justify-content: space-between; gap: 40px; }
+.f-top p { margin: 0; max-width: 570px; }
+.f-top nav { display: flex; gap: 20px; }
+.f-top a, .back { text-decoration: none; border-bottom: 1px solid var(--ink); height: 21px; }
+.name { margin: 110px 0 14px; font-weight: 600; letter-spacing: -.04em; text-transform: uppercase; line-height: .86; font-size: calc((100vw - 2 * var(--pad)) / 9.42); white-space: nowrap; overflow: hidden; }
+.f-bot { display: flex; justify-content: space-between; align-items: center; }
+.f-bot a { text-decoration: none; }
+
+@media (max-width: 809px) {
+  :root { --pad: 12px; }
+  .pill.menu { width: auto; flex: 1; }
+  .nav .sp, .nav .connect { display: none; }
+  .hero { height: auto; aspect-ratio: 430 / 290; }
+  .head { grid-template-columns: minmax(0, 1fr); gap: 28px; padding: 36px var(--pad) 44px; }
+  h1 { font-size: 32px; }
+  .meta { margin-top: 28px; grid-template-columns: 90px minmax(0, 1fr); }
+  .mono { font-size: 13px; }
+  .sec { grid-template-columns: minmax(0, 1fr); gap: 10px; padding-top: 56px; }
+  .sec h2 { font-size: 26px; } .sec h3 { font-size: 20px; margin-top: 44px; } .sec p { font-size: 17px; }
+  .rule { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .rule b { margin-top: 14px; }
+  figure { margin-top: 48px; }
+  .four { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; margin: 0 calc(-1 * var(--pad)); padding: 0 var(--pad); scrollbar-width: none; }
+  .four > div { flex: 0 0 76%; scroll-snap-align: center; }
+  .disclaimer { width: auto; margin: 56px 0 0; padding: 0 var(--pad); }
+  footer { padding-top: 90px; }
+  .f-top { flex-direction: column; text-align: center; align-items: center; }
+  .name { margin-top: 56px; text-align: center; }
+  .f-bot { flex-direction: column; gap: 12px; }
+}
+</style>
+</head>
+<body id="top">
+
+<header class="nav">
+  <a class="pill logo" href="/" aria-label="Justin Comstock, home">J_C</a>
+  <a class="pill menu" href="/projects"><span>Projects</span>
+    <svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 6h10M3 10h8M3 14h4"/></svg></a>
+  <span class="sp"></span>
+  <button class="pill icon" id="theme" type="button" aria-label="Switch between light and dark">
+    <svg viewBox="0 0 18 18" aria-hidden="true"><circle cx="9" cy="9" r="7" fill="none" stroke="currentColor" stroke-width="2"/><path d="M9 2a7 7 0 0 0 0 14z" fill="currentColor"/></svg></button>
+  <a class="pill connect" href="mailto:hello@justincomstock.com"><span>Connect</span>
+    <svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" style="width:12px"><path d="M6 4l5 5-5 5"/></svg></a>
+</header>
+
+<main>
+  <div class="hero"><picture>
+    <source media="(max-width: 809px)" srcset="/_assets/hex-agent/hero-narrow.webp" width="860" height="580">
+    <img src="/_assets/hex-agent/hero-canvas.webp" width="2800" height="1200" alt="A dark desktop background with a glowing ring at its centre. Beside it, what the agent is doing right now and a short list of what it finished lately. Demo content."></picture></div>
+
+  <section class="head">
+    <div>
+      <h1>Hex</h1>
+      <dl class="meta mono">
+        <dt>Project:</dt><dd>Personal, one user</dd>
+        <dt>Year:</dt><dd>/ 2026</dd>
+        <dt>Role:</dt><dd>Product and interaction design, direction of AI coding agents</dd>
+        <dt>Built on:</dt><dd>Claude, OpenClaw, Python, SQLite, plain HTML/CSS/JS</dd>
+      </dl>
+    </div>
+    <p class="intro mono">Designing an AI agent you can live with. Hex sees my day and acts in it: it keeps a short list of what needs me, drafts what I would send, and keeps working on my computer between conversations. I designed the product and its interaction rules and directed the AI coding agents that built it. It has one user so far: me.</p>
+  </section>
+
+  <div class="story">
+
+    <section class="sec">
+      <div class="mono">01 / The problem</div>
+      <div>
+        <h2>An assistant answers. An agent acts.</h2>
+        <p>An agent that acts in your life is a different design problem. It is on all day. It can read your screen and your mail, move your files and write in your name. Done badly it is annoying, then creepy, then dangerous.</p>
+        <p>I wanted one I could actually live with, so I built it for the only person whose life I'm allowed to test on.</p>
+      </div>
+    </section>
+
+    <section class="sec">
+      <div class="mono">02 / My role</div>
+      <div>
+        <h2>I direct. Agents write the code.</h2>
+        <p>I decide what the product is, how it behaves and where its lines are, and I direct AI coding agents closely. Most of the building is done by Hex itself: it writes and tests its own interface, and I correct what it shows me.</p>
+        <p>The repository's history starts on September 27, 2026, with about 350 commits in the first five days. Dozens of them open by quoting the correction of mine that caused them.</p>
+      </div>
+    </section>
+
+    <section class="sec">
+      <div class="mono">03 / Decisions</div>
+      <div>
+        <h3>1. Every output needs a home, an action, a way back and a notice.</h3>
+        <p>Early on, Hex sent me long reports in chat. Good work, useless delivery. I told it:</p>
+        <p class="q"><span class="mono">"there's no action on it, there's nowhere it on the dashboard, i don't hear a notification"</span></p>
+        <p>Its first fix was a length cap. Its second was one fixed delivery pipe. Both missed. I wanted the agent to keep choosing how to reach me, and to think about the person on the other end.</p>
+        <div class="rule mono">
+          <div><i>01</i><b>A home</b><span>Where will I find it tomorrow?</span></div>
+          <div><i>02</i><b>An action</b><span>What can I do with it in one tap?</span></div>
+          <div><i>03</i><b>A way back</b><span>How does my answer reach the agent?</span></div>
+          <div><i>04</i><b>A notice</b><span>Will I know it is there?</span></div>
+        </div>
+        <p class="cost">The cost: no single channel to learn. The gain: an agent that fits the moment.</p>
+
+        <h3>2. A tiny list for today, a board for everything else.</h3>
+        <p>One list of what needs me, written like notes from a person: a plain sentence, one line of why, one button. The command that adds an item refuses file names, ids and legal references. Those are the agent's workings, not a note to me.</p>
+        <p>When that list grew into a giant to-do, I split it. The Board keeps everything in calm lanes. People and plans are notes with no Done button, because a friend isn't a task. The agent's own work sits in a dimmer lane.</p>
+        <p class="cost">The cost: a second place to look. The gain: "needs you" stays small enough to trust.</p>
+      </div>
+    </section>
+
+    <figure>
+      <div class="frame"><picture>
+        <source media="(max-width: 809px)" srcset="/_assets/hex-agent/board-narrow.webp" width="860" height="1620">
+        <img src="/_assets/hex-agent/board-wide.webp" width="2800" height="1140" loading="lazy" alt="The Board: four lanes named To do, People and plans, Waiting on others, and I'm handling. Each card is one plain sentence, one line of why, and one main button. Demo content."></picture></div>
+      <figcaption class="mono">The Board. One sentence, one reason, one button. The lane decides which buttons a card gets.</figcaption>
+    </figure>
+
+    <section class="sec">
+      <div class="mono"></div>
+      <div>
+        <h3>3. Anything in my name waits for my tap.</h3>
+        <p>Drafting is free. Sending is mine. Each draft appears as a familiar compose window that I can edit in place, with one button that names the recipient. If the draft changed after I read it, the send is refused.</p>
+        <p class="cost">The cost: it is slower than letting the agent send. This is the one place a mistake lands on someone else, so I pay the friction.</p>
+      </div>
+    </section>
+
+    <figure>
+      <div class="frame"><picture>
+        <source media="(max-width: 809px)" srcset="/_assets/hex-agent/approve-narrow.webp" width="860" height="1450">
+        <img src="/_assets/hex-agent/approve-wide.webp" width="2800" height="1280" loading="lazy" alt="An email the agent drafted, shown as a compose window. The button reads: Send to idris@example.com? Next to it: Not yet. Below: This sends it from your account, as you. Demo content."></picture></div>
+      <figcaption class="mono">The approval. The second tap names who it goes to.</figcaption>
+    </figure>
+
+    <section class="sec">
+      <div class="mono"></div>
+      <div>
+        <h3>4. A window that shows one thing at a time.</h3>
+        <p>The desktop widget started as the dashboard in a smaller room. Then it was stacked panels, which didn't work. Now it shows one thing: the agent at rest, the one item that needs me, or the conversation. Everything else is a chip.</p>
+        <p>Watching the agent's job list felt awkward, so its work moved off my list and onto an ambient canvas behind my desktop icons.</p>
+
+        <h3>5. Pings that respect what I'm doing.</h3>
+        <p>For a while I had to ask for every update:</p>
+        <p class="q"><span class="mono">"there's no ping, no badge to click on etc. things are treated statically right now"</span></p>
+        <p>The first version used system notifications, which a full-screen game hides. Now a pop and a short sound land inside Hex's own window, with a count on the orb and my phone as the fallback. One click opens the exact thing.</p>
+        <div class="quiet mono">
+          <div><span>My screen is being broadcast, or I'm in VR</span><span>Nothing, until after</span></div>
+          <div><span>On a call</span><span>It counts quietly. One ping follows the call</span></div>
+          <div><span>Quiet hours</span><span>Only what is urgent</span></div>
+          <div><span>Away from the desk</span><span>It waits for me</span></div>
+        </div>
+
+        <h3>6. An off switch that doesn't need the agent to agree.</h3>
+        <p>If I say "hands off", a small program on my own computer stops the part of Hex that can touch it. It runs on a timer, on my side, and does not depend on the agent complying.</p>
+        <p>Undo sits next to every change. When Hex rearranges my screen, a card says so, with one tap to put it back. Tidying files never deletes anything. There is also a short list it never does: sign in to a bank, pay for something, change a password.</p>
+      </div>
+    </section>
+
+    <figure>
+      <div class="four">
+        <div><div class="frame"><img src="/_assets/hex-agent/widget-calm.webp" width="874" height="1200" loading="lazy" alt="The desktop widget at rest: a glowing ring, one line saying what the agent is doing, and two small chips. Demo content."></div><p class="mono">At rest. One line, two chips.</p></div>
+        <div><div class="frame"><img src="/_assets/hex-agent/widget-focus.webp" width="874" height="1200" loading="lazy" alt="The widget showing the one thing that needs the person: a title, a reason, three steps and one button. Demo content."></div><p class="mono">The one thing that needs me.</p></div>
+        <div><div class="frame"><img src="/_assets/hex-agent/widget-ping.webp" width="874" height="1200" loading="lazy" alt="The widget with a count of one on the ring and a small pop at the bottom that opens the changed card. Demo content."></div><p class="mono">A ping, and a count that waits.</p></div>
+        <div><div class="frame"><img src="/_assets/hex-agent/widget-undo.webp" width="874" height="1200" loading="lazy" alt="A card titled Hex changed your screen, with a Put it back button. Demo content."></div><p class="mono">What it changed, and the way back.</p></div>
+      </div>
+    </figure>
+
+    <section class="sec">
+      <div class="mono">04 / What went wrong</div>
+      <div>
+        <h2>Most of it, at first.</h2>
+        <p>I was sent a widget with clipped rows after automated screenshots had "looked right". The rule became: look at what you built, at my real window size, before calling it done.</p>
+        <p>Hex kept answering each correction with a new hard rule, when what I wanted was judgment. The few lines above are the only ones I kept rigid.</p>
+        <p>Test messages once landed in my real chat. Test copies can no longer reach it.</p>
+      </div>
+    </section>
+
+    <section class="sec">
+      <div class="mono">05 / Where it stands</div>
+      <div>
+        <h2>Running every day, for one person.</h2>
+        <p>This is a personal project with one user. It runs daily on a small server and my PC. I have no metrics to show. The phone side is still thin, and the newest surface, drawing on my desktop at will, is only days old.</p>
+        <p>It runs on Claude models through OpenClaw, an open-source agent runtime. The rest is Python, SQLite and plain HTML, CSS and JavaScript.</p>
+        <p>What I'd take to a team: the hard part of an agent isn't what it can do. It is where its output lives, what waits for a yes, and how you take something back.</p>
+      </div>
+    </section>
+  </div>
+
+  <p class="disclaimer mono">*The screens on this page are redrawn from the real product with a made-up person's day. The real ones are full of mine.</p>
+  <a class="back mono" href="/projects">All projects</a>
+</main>
+
+<footer>
+  <div class="f-top">
+    <p class="mono">Now that you got here, why not getting in touch...? Look around, there are all my socials and email address, I'm looking forward to bringing your vision to life.</p>
+    <nav class="mono"><a href="https://www.linkedin.com/in/justin-comstock/" rel="noopener">LinkedIn</a></nav>
+  </div>
+  <div class="name">Justin Comstock</div>
+  <div class="f-bot mono">
+    <span></span>
+    <a href="#top">Back to top</a>
+    <a href="mailto:hello@justincomstock.com">&rarr;&nbsp; hello@justincomstock.com</a>
+  </div>
+</footer>
+
+<script>
+document.getElementById("theme").addEventListener("click", function () {
+  var r = document.documentElement, dark = r.dataset.theme ? r.dataset.theme === "dark" : matchMedia("(prefers-color-scheme: dark)").matches;
+  r.dataset.theme = dark ? "light" : "dark";
+});
+</script>
+</body>
+</html>

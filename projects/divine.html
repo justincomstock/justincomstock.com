@@ -1,0 +1,402 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Divine - Justin Comstock's Portfolio</title>
+<meta name="description" content="Divine is a native Mac design tool Justin Comstock has designed and built on his own since 2023: an infinite canvas, live multiplayer, and an AI agent that designs on the canvas. In development.">
+<link rel="canonical" href="https://justincomstock.com/projects/divine">
+<meta property="og:title" content="Divine - Justin Comstock's Portfolio">
+<meta property="og:description" content="A native Mac design tool, designed and built by one person. In development.">
+<meta property="og:type" content="website">
+<link href="/_assets/framerusercontent.com/images/M7mDvaOK4lSJHl07cDSRUI0EYN8.png" rel="icon">
+<link rel="preload" as="font" type="font/woff2" crossorigin href="/_assets/framerusercontent.com/third-party-assets/fontshare/wf/K46YRH762FH3QJ25IQM3VAXAKCHEXXW4/ISLWQPUZHZF33LRIOTBMFOJL57GBGQ4B/3ZLMEXZEQPLTEPMHTQDAUXP5ZZXCZAEN.woff2">
+<style>
+@font-face { font-family: "General Sans"; src: url("/_assets/framerusercontent.com/third-party-assets/fontshare/wf/MFQT7HFGCR2L5ULQTW6YXYZXXHMPKLJ3/YWQ244D6TACUX5JBKATPOW5I5MGJ3G73/7YY3ZAAE3TRV2LANYOLXNHTPHLXVWTKH.woff2") format("woff2"); font-display: swap; font-weight: 400 }
+@font-face { font-family: "General Sans"; src: url("/_assets/framerusercontent.com/third-party-assets/fontshare/wf/3RZHWSNONLLWJK3RLPEKUZOMM56GO4LJ/BPDRY7AHVI3MCDXXVXTQQ76H3UXA63S3/SB2OEB6IKZPRR6JT4GFJ2TFT6HBB6AZN.woff2") format("woff2"); font-display: swap; font-weight: 500 }
+@font-face { font-family: "General Sans"; src: url("/_assets/framerusercontent.com/third-party-assets/fontshare/wf/K46YRH762FH3QJ25IQM3VAXAKCHEXXW4/ISLWQPUZHZF33LRIOTBMFOJL57GBGQ4B/3ZLMEXZEQPLTEPMHTQDAUXP5ZZXCZAEN.woff2") format("woff2"); font-display: swap; font-weight: 600 }
+@font-face { font-family: "General Sans"; src: url("/_assets/framerusercontent.com/third-party-assets/fontshare/wf/KWXO5X3YW4X7OLUMPO4X24HQJGJU7E2Q/VOWUQZS3YLP66ZHPTXAFSH6YACY4WJHT/NIQ54PVBBIWVK3PFSOIOUJSXIJ5WTNDP.woff2") format("woff2"); font-display: swap; font-weight: 700 }
+@font-face { font-family: "Azeret Mono"; src: url("/_assets/fonts.gstatic.com/s/azeretmono/v21/3XFuErsiyJsY9O_Gepph-HHhZfk.woff2") format("woff2"); font-display: swap; font-weight: 400 }
+
+:root {
+  --bg: #fafafa; --ink: #0d0d0d; --ink-2: #5c5c5c; --mute: #bdbdbd; --chip: rgba(240,240,240,.8);
+  --rule: #e9e9e9; --panel: #000; --panel-ink: #fff; --panel-2: #9a9a9a; --panel-rule: #2a2a2a; --panel-box: #111;
+  --pad: 20px;
+  --sans: "General Sans", "Helvetica Neue", Arial, sans-serif; --mono: "Azeret Mono", ui-monospace, Menlo, monospace;
+}
+html[data-theme="dark"] { --bg: #0d0d0d; --ink: #fafafa; --ink-2: #a3a3a3; --mute: #5e5e5e; --chip: rgba(38,38,38,.8); --rule: #242424; --panel: #000; --panel-rule: #2a2a2a; }
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--sans); -webkit-font-smoothing: antialiased; }
+a { color: inherit; }
+.mono { font-family: var(--mono); font-size: 12px; line-height: 20px; letter-spacing: -0.6px; text-transform: uppercase; margin: 0; }
+.wrap { padding: 0 var(--pad); }
+
+/* nav */
+.nav { position: sticky; top: 0; z-index: 10; display: flex; gap: 10px; align-items: center; padding: 20px var(--pad); }
+.chip { height: 40px; border-radius: 8px; background: var(--chip); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); display: flex; align-items: center; text-decoration: none; color: var(--ink); border: 0; font: inherit; cursor: pointer; }
+.chip.logo { padding: 0 16px; font-weight: 700; font-size: 17px; letter-spacing: -0.34px; height: 41px; }
+.chip.proj { width: 256px; padding: 0 16px; justify-content: space-between; font-size: 16px; letter-spacing: -0.32px; text-transform: uppercase; }
+.chip.proj svg, .chip.go svg { flex: none; }
+.nav .sp { flex: 1; }
+.chip.theme { width: 40px; justify-content: center; }
+.chip.go { padding: 0 12px 0 16px; gap: 6px; font-size: 16px; letter-spacing: -0.32px; text-transform: uppercase; }
+
+/* hero */
+.hero { margin: 44px 0 0; aspect-ratio: 1400 / 579; background: #000; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+.hero::before { content: ""; position: absolute; inset: 0; background-image: radial-gradient(#2b2b2b 1px, transparent 1.2px); background-size: 28px 28px; }
+.hero img { position: relative; height: 74%; width: auto; aspect-ratio: 1; display: block; }
+
+/* header block */
+.head { display: grid; grid-template-columns: 490px 1fr 574px; column-gap: 20px; padding-top: 72px; padding-bottom: 72px; border-bottom: 1px solid var(--rule); }
+h1 { margin: 0 0 12px; font-size: 48px; line-height: 64px; font-weight: 600; letter-spacing: -0.96px; text-transform: uppercase; }
+.meta { display: grid; grid-template-columns: 93px 1fr; column-gap: 20px; row-gap: 12px; margin: 0; }
+.meta dt { color: var(--mute); } .meta dd { margin: 0; }
+html[data-theme="dark"] .meta dt { color: #7a7a7a; }
+.live { display: inline-block; margin-top: 32px; letter-spacing: normal; }
+.head .intro { grid-column: 3; padding-top: 10px; }
+
+/* case study body */
+.sec { display: grid; grid-template-columns: 1fr 1fr; column-gap: 20px; padding-top: 96px; }
+.sec > .lab { color: var(--ink-2); padding-top: 9px; }
+.sec > .txt { max-width: 640px; }
+h2 { margin: 0 0 20px; font-size: 32px; line-height: 38px; font-weight: 600; letter-spacing: -0.8px; }
+.txt p { margin: 0 0 18px; font-size: 18px; line-height: 29px; letter-spacing: -0.1px; }
+.txt p:last-child { margin-bottom: 0; }
+
+/* panels */
+.panel { margin-top: 56px; background: var(--panel); color: var(--panel-ink); padding: 72px 96px; }
+html[data-theme="dark"] .panel { outline: 1px solid var(--panel-rule); outline-offset: -1px; }
+.panel .cap { color: var(--panel-2); }
+.panel h3 { margin: 8px 0 44px; font-size: 32px; line-height: 38px; font-weight: 500; letter-spacing: -0.6px; max-width: 760px; }
+
+/* diagram */
+.authors { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.box { border: 1px solid var(--panel-rule); background: var(--panel-box); border-radius: 10px; padding: 20px 22px 22px; }
+.box b { display: block; font-weight: 500; font-size: 19px; letter-spacing: -0.2px; margin: 6px 0 8px; }
+.box span { display: block; color: var(--panel-2); font-size: 15px; line-height: 22px; }
+.box .mono { color: var(--panel-2); }
+.box code { font-family: var(--mono); font-size: 12px; letter-spacing: -0.4px; color: #d6d6d6; }
+.flow { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; height: 44px; }
+.flow i { justify-self: center; width: 1px; background: #5a5a5a; position: relative; }
+.flow i::after { content: ""; position: absolute; bottom: 0; left: -4px; width: 8px; height: 8px; border-right: 1px solid #5a5a5a; border-bottom: 1px solid #5a5a5a; transform: rotate(45deg); transform-origin: center; margin-bottom: 1px; }
+.model { border: 1px solid #fff; border-radius: 10px; padding: 24px 22px 26px; display: grid; grid-template-columns: 1fr 1fr; gap: 16px 40px; align-items: center; }
+.model b { display: block; font-weight: 500; font-size: 24px; letter-spacing: -0.4px; margin: 6px 0 8px; }
+.model span { color: var(--panel-2); font-size: 15px; line-height: 22px; display: block; }
+.model > * { min-width: 0; }
+.tree { overflow-x: auto; font-family: var(--mono); font-size: 12px; line-height: 22px; letter-spacing: -0.4px; color: #d6d6d6; margin: 0; white-space: pre; }
+.tree em { font-style: normal; color: #7d7d7d; }
+
+/* perf table */
+.perf { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+.perf th { font-family: var(--mono); font-size: 12px; line-height: 18px; letter-spacing: -0.5px; text-transform: uppercase; font-weight: 400; color: var(--panel-2); text-align: right; padding: 0 0 14px 16px; vertical-align: bottom; }
+.perf th:first-child, .perf td:first-child { text-align: left; padding-left: 0; }
+.perf td { border-top: 1px solid var(--panel-rule); padding: 18px 0 18px 16px; text-align: right; font-size: 28px; font-weight: 500; letter-spacing: -0.5px; }
+.perf td:first-child { font-size: 18px; font-weight: 400; letter-spacing: -0.1px; }
+.perf td.z { color: #7d7d7d; }
+.note { margin: 28px 0 0; color: var(--panel-2); font-size: 15px; line-height: 23px; max-width: 640px; }
+
+/* chart */
+.chartwrap { margin-top: 56px; border-top: 1px solid var(--rule); padding: 56px 0 0; }
+.chartwrap .cap { color: var(--ink-2); }
+.chartwrap h3 { margin: 8px 0 40px; font-size: 32px; line-height: 38px; font-weight: 500; letter-spacing: -0.6px; }
+.chart { list-style: none; margin: 0; padding: 22px 0 0; display: grid; grid-template-columns: repeat(36, 1fr); column-gap: 2px; height: 262px; border-bottom: 1px solid var(--ink); position: relative; }
+.chart li { position: relative; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; outline: none; }
+.chart .bar { width: 100%; max-width: 24px; background: var(--ink); border-radius: 4px 4px 0 0; min-height: 3px; }
+.chart li:hover .bar, .chart li:focus-visible .bar { background: var(--ink-2); }
+.chart .v { font-family: var(--mono); font-size: 12px; letter-spacing: -0.5px; line-height: 16px; margin-bottom: 4px; }
+.chart .t { position: absolute; top: 100%; left: 50%; transform: translateX(-50%); margin-top: 8px; font-family: var(--mono); font-size: 11px; letter-spacing: -0.4px; color: var(--ink-2); white-space: nowrap; }
+.chart li:first-child .t { left: 0; transform: none; }
+.chart .ph { position: absolute; top: 100%; margin-top: 34px; left: 50%; transform: translateX(-50%); width: 20px; height: 20px; border-radius: 50%; border: 1px solid var(--ink); font-family: var(--mono); font-size: 11px; line-height: 18px; text-align: center; }
+.chart li::after { content: attr(data-tip); position: absolute; bottom: calc(100% - 14px); left: 50%; transform: translateX(-50%); background: var(--ink); color: var(--bg); font-family: var(--mono); font-size: 11px; letter-spacing: -0.3px; padding: 5px 8px; border-radius: 6px; white-space: nowrap; opacity: 0; pointer-events: none; z-index: 2; }
+.chart li:hover::after, .chart li:focus-visible::after { opacity: 1; }
+.chart li:nth-child(-n+4)::after { left: 0; transform: none; }
+.chart li:nth-last-child(-n+5)::after { left: auto; right: 0; transform: none; }
+.phases { list-style: none; margin: 84px 0 0; padding: 0; display: grid; grid-template-columns: repeat(5, 1fr); gap: 20px; }
+.phases li { font-size: 15px; line-height: 22px; color: var(--ink-2); }
+.phases b { display: block; color: var(--ink); font-weight: 500; margin: 8px 0 2px; }
+.phases .n { display: block; width: 20px; height: 20px; border-radius: 50%; border: 1px solid var(--ink); color: var(--ink); font-family: var(--mono); font-size: 11px; line-height: 18px; text-align: center; }
+
+
+/* next + footer */
+.next { margin-top: 120px; padding-top: 28px; border-top: 1px solid var(--rule); display: flex; justify-content: space-between; align-items: baseline; gap: 20px; }
+.next a { font-size: 32px; line-height: 38px; font-weight: 600; letter-spacing: -0.8px; text-transform: uppercase; text-decoration: none; }
+.next a:hover { text-decoration: underline; }
+.foot { padding-top: 140px; padding-bottom: 28px; }
+.foot .top { display: flex; justify-content: space-between; gap: 40px; }
+.foot .top p { max-width: 574px; }
+.soc { display: flex; gap: 20px; list-style: none; margin: 0; padding: 0; }
+.soc a, .foot .bot a { text-decoration: underline; text-underline-offset: 3px; }
+.name { margin: 96px 0 20px; font-weight: 600; text-transform: uppercase; font-size: calc((100vw - 2 * var(--pad)) * 0.1062); line-height: .8; letter-spacing: -0.04em; white-space: nowrap; }
+.foot .bot { display: flex; justify-content: space-between; align-items: center; }
+.foot .bot a.plain { text-decoration: none; }
+
+@media (max-width: 1100px) {
+  .head { grid-template-columns: 1fr 1fr; } .head .intro { grid-column: 2; }
+  .panel { padding: 56px 40px; }
+  .phases { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 720px) {
+  :root { --pad: 12px; }
+  .chip.proj { flex: 1; width: auto; } .nav .sp, .chip.go { display: none; }
+  .hero { margin-top: 30px; aspect-ratio: 366 / 240; }
+  .head { display: block; padding-top: 40px; padding-bottom: 56px; }
+  h1 { font-size: 24px; line-height: 32px; letter-spacing: -0.72px; }
+  .meta { grid-template-columns: 70px 1fr; }
+  .head .intro { padding-top: 44px; }
+  .sec { display: block; padding-top: 64px; }
+  .sec > .lab { padding: 0 0 12px; }
+  h2 { font-size: 26px; line-height: 31px; letter-spacing: -0.6px; margin-bottom: 16px; }
+  .txt p { font-size: 17px; line-height: 27px; }
+  .panel { margin-top: 40px; padding: 40px 20px; }
+  .panel h3, .chartwrap h3 { font-size: 24px; line-height: 29px; margin-bottom: 28px; }
+  .authors { grid-template-columns: 1fr; gap: 10px; }
+  .flow { grid-template-columns: 1fr; height: 32px; } .flow i:nth-child(n+2) { display: none; }
+  .model { grid-template-columns: 1fr; } .tree { font-size: 11px; line-height: 20px; }
+  .perf th { font-size: 10px; line-height: 14px; padding-left: 8px; }
+  .perf td { font-size: 20px; padding: 14px 0 14px 8px; } .perf td:first-child { font-size: 15px; line-height: 20px; }
+  .chartwrap { margin-top: 40px; padding: 40px 0 0; }
+  .chart li:first-child .t { display: none; }
+  .chart { height: 200px; column-gap: 1px; }
+  .chart .ph { width: 18px; height: 18px; line-height: 16px; }
+  .phases { grid-template-columns: 1fr; gap: 16px; margin-top: 76px; }
+  .phases li { display: grid; grid-template-columns: 20px 1fr; column-gap: 12px; } .phases li b { margin: 0; } .phases li .d { grid-column: 2; }
+  .next { margin-top: 80px; display: block; } .next a { font-size: 24px; line-height: 30px; display: block; margin-top: 8px; }
+  .foot { padding-top: 96px; text-align: center; }
+  .foot .top { display: block; } .foot .top p { margin: 0 auto 36px; }
+  .soc { justify-content: center; gap: 28px; }
+  .name { margin: 44px 0 18px; }
+  .foot .bot { flex-direction: column; gap: 16px; }
+}
+</style>
+<script>
+(function () {
+  var d = document.documentElement;
+  try { var t = localStorage.getItem("jc-theme"); if (t === "dark" || t === "light") d.setAttribute("data-theme", t); } catch (e) {}
+})();
+</script>
+</head>
+<body id="top">
+
+<header class="nav">
+  <a class="chip logo" href="../" aria-label="Justin Comstock, home">J_C</a>
+  <a class="chip proj" href="../projects"><span>Projects</span>
+    <svg width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true"><path d="M1 2h12M1 8h8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></a>
+  <span class="sp"></span>
+  <button class="chip theme" type="button" id="theme" aria-label="Switch between light and dark">
+    <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><circle cx="9" cy="9" r="7.2" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M9 1.8a7.2 7.2 0 0 0 0 14.4z" fill="currentColor"/></svg>
+  </button>
+  <a class="chip go" href="mailto:hello@justincomstock.com"><span>Connect</span>
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M5 3l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+</header>
+
+<main>
+<div class="wrap">
+  <div class="hero">
+    <img src="/_assets/divine/app-icon.png" width="640" height="640" alt="The Divine app icon: a white letter D cut into geometric pieces, on black.">
+  </div>
+
+  <section class="head">
+    <div>
+      <h1>Divine</h1>
+      <dl class="meta mono">
+        <dt>Client:</dt><dd>Self-initiated</dd>
+        <dt>Year:</dt><dd>/ 2023 to now</dd>
+        <dt>Services:</dt><dd>Product, Design, Engineering</dd>
+        <dt>Status:</dt><dd>In development</dd>
+      </dl>
+      <a class="mono live" href="https://divineapp.ai" rel="noopener">Product site</a>
+    </div>
+    <p class="mono intro">Divine is a native Mac design tool I've been designing and building on my own since 2023: an infinite canvas, live multiplayer, and an AI agent that designs on the canvas with you. It's in development and hasn't been released. This is the work so far, and the decisions behind it.</p>
+  </section>
+
+  <section class="sec">
+    <p class="mono lab">01 / Why</p>
+    <div class="txt">
+      <h2>Why build a design tool</h2>
+      <p>I've worked in Figma every day for years, and I kept a list of everything that slowed me down. By 2024 I was turning that list into to-dos for a tool of my own.</p>
+      <p>To check it wasn't just me, I read through the complaints on Figma's community forum, where people post when they're frustrated, and I interviewed other designers. The same thing kept coming up: the canvas lags on large, deeply nested files. People weren't asking for more features. They wanted the ones they already had to feel instant.</p>
+      <p>So the research mostly told me what not to build.</p>
+    </div>
+  </section>
+
+  <section class="sec">
+    <p class="mono lab">02 / Native</p>
+    <div class="txt">
+      <h2>Native, and Mac only</h2>
+      <p>Divine is written in Swift. The interface is SwiftUI, and I drop down to AppKit wherever SwiftUI isn't precise enough: mouse tracking, two-finger trackpad panning, hit-testing.</p>
+      <p>The cost is reach. A web tool runs everywhere and mine runs on a Mac. I looked at a web build and at Swift on Windows, and set both aside. The whole bet is speed, and speed is easier to keep when nothing sits between the app and the machine.</p>
+    </div>
+  </section>
+
+  <section class="sec">
+    <p class="mono lab">03 / Model</p>
+    <div class="txt">
+      <h2>One document, three kinds of author</h2>
+      <p>Every design is a tree: frames inside frames, holding text, images and vectors, each positioned relative to its parent. Everything that changes a design goes through that one tree, whether it's my hands, a teammate on another Mac, or the AI agent.</p>
+      <p>It's why undo, export and the share link behave the same no matter who made the change.</p>
+    </div>
+  </section>
+
+  <figure class="panel" style="margin-left:0;margin-right:0" aria-label="Diagram of how changes reach a Divine document">
+    <p class="mono cap">Diagram, drawn from the source code</p>
+    <h3>Every change, from a person or the AI, lands in the same tree.</h3>
+    <div class="authors">
+      <div class="box"><p class="mono">Author 1</p><b>You</b><span>Mouse, trackpad and keyboard, read through AppKit and handed to the SwiftUI editor.</span></div>
+      <div class="box"><p class="mono">Author 2</p><b>The AI agent</b><span>Reads and edits real layers through tools: <code>get_canvas_snapshot</code>, <code>create_elements</code>, <code>update_elements</code>.</span></div>
+      <div class="box"><p class="mono">Author 3</p><b>Teammates</b><span>Edits, comments and cursors from other Macs, arriving live through Firebase Realtime Database.</span></div>
+    </div>
+    <div class="flow" aria-hidden="true"><i></i><i></i><i></i></div>
+    <div class="model">
+      <div><p class="mono cap">The document</p><b>One element tree</b><span>Frames, text, images and vectors. Positions are relative to the parent, so a frame moves with everything inside it. The canvas, the layers panel, undo, export and the browser share link all read from here.</span></div>
+<pre class="tree" aria-hidden="true">frame  <em>"Checkout"  stack: vertical</em>
+├─ text   <em>"Title"   x 24  y 24</em>
+├─ frame  <em>"Card"    fill width</em>
+│  ├─ image  <em>"Photo"</em>
+│  └─ text   <em>"Price"</em>
+└─ vector <em>"Divider"</em></pre>
+    </div>
+  </figure>
+
+  <section class="sec">
+    <p class="mono lab">04 / Multiplayer</p>
+    <div class="txt">
+      <h2>Multiplayer that met real cursors</h2>
+      <p>The first version of live cursors wrote every mouse movement to the database. It used up the day's free quota of 20,000 writes within minutes. I moved cursors to a realtime database that same day.</p>
+      <p>Since then, how often the app writes is something I count. A recent fix was a drag that saved each position twice.</p>
+    </div>
+  </section>
+
+
+  <section class="sec">
+    <p class="mono lab">05 / AI</p>
+    <div class="txt">
+      <h2>AI on the canvas, not beside it</h2>
+      <p>I didn't want AI as a side feature that hands you a picture. In Divine the agent edits the same layers I do. It reads the canvas, works out which layer "that button" means, and builds with the same frames and autolayout a person would use.</p>
+      <p>The design streams onto the canvas layer by layer while the model is still writing, so you watch it being built. You can undo a whole run, and the agent can't add to a layer you've locked. It runs on Claude or GPT.</p>
+    </div>
+  </section>
+
+
+  <section class="sec">
+    <p class="mono lab">06 / Speed</p>
+    <div class="txt">
+      <h2>Speed is a test, not a feeling</h2>
+      <p>Timings are noisy, so I count instead. A fixed set of actions runs against a heavy test file and records exactly how much work the app did. The numbers live in the repository. If a change makes a drag cost one more database write or one more full layout, it shows up as a changed number, not as a hunch three weeks later.</p>
+    </div>
+  </section>
+
+  <figure class="panel" style="margin-left:0;margin-right:0">
+    <p class="mono cap">Current baseline, from the repository</p>
+    <h3>What each action is allowed to cost.</h3>
+    <table class="perf">
+      <thead><tr><th scope="col">Action</th><th scope="col">Layout passes</th><th scope="col">Full re-layouts</th><th scope="col">Database writes</th></tr></thead>
+      <tbody>
+        <tr><td>Open the file</td><td>2,001</td><td>1</td><td>1</td></tr>
+        <tr><td>Drag a layer, 60 steps</td><td>60</td><td class="z">0</td><td>60</td></tr>
+        <tr><td>Resize a layer, 60 steps</td><td>422</td><td class="z">0</td><td>61</td></tr>
+        <tr><td>Move a layer into another frame</td><td>4</td><td>4</td><td>1</td></tr>
+      </tbody>
+    </table>
+    <p class="note">Counts, not milliseconds: the same file and the same code always give the same number, so any change is a real one.</p>
+  </figure>
+
+  <section class="sec">
+    <p class="mono lab">07 / Process</p>
+    <div class="txt">
+      <h2>How I build it</h2>
+      <p>I design every interaction and decide what gets built. Since mid-2026 most of the code is written by AI coding agents that I direct, several at once, each on its own branch, under one rule: the main branch always builds and passes its tests. The judgment stays with me: what to build, how it should feel, and whether it's right.</p>
+    </div>
+  </section>
+
+  <section class="sec">
+    <p class="mono lab">08 / Today</p>
+    <div class="txt">
+      <h2>Where it stands</h2>
+      <p>Divine is in development and hasn't been released. Built so far: the canvas, nested frames, autolayout, components and instances, pen and vector tools, rich text, comments, paste from Figma, export to PNG, JPG, WebP, SVG and PDF, and a share link that shows a design live in the browser. There are about 1,300 automated tests behind it.</p>
+      <p>It took 868 commits over three years, in bursts, with a year away in the middle. What it doesn't have yet is users. That's the next thing to earn.</p>
+    </div>
+  </section>
+
+  <figure class="chartwrap" style="margin-left:0;margin-right:0">
+    <p class="mono cap">Commits per month, September 2023 to August 2026</p>
+    <h3>Three years, in bursts.</h3>
+    <ol class="chart" aria-label="Commits per month. Hover or focus a bar for its number.">
+<li tabindex="0" aria-label="Sep 2023: 8 commits" data-tip="Sep 2023: 8 commits" class=on><span class="bar" style="height:1.80%"></span><span class="t">Sep ’23</span></li>
+<li tabindex="0" aria-label="Oct 2023: 4 commits" data-tip="Oct 2023: 4 commits" class=on><span class="bar" style="height:1.20%"></span><span class="t"></span></li>
+<li tabindex="0" aria-label="Nov 2023: 17 commits" data-tip="Nov 2023: 17 commits" class=on><span class="bar" style="height:3.83%"></span><span class="t"></span><span class="ph">1</span></li>
+<li tabindex="0" aria-label="Dec 2023: 32 commits" data-tip="Dec 2023: 32 commits" class=on><span class="bar" style="height:7.21%"></span><span class="t"></span></li>
+<li tabindex="0" aria-label="Jan 2024: 1 commit" data-tip="Jan 2024: 1 commit" class=on><span class="bar" style="height:1.20%"></span><span class="t">2024</span></li>
+<li tabindex="0" aria-label="Feb 2024: 0 commits" data-tip="Feb 2024: 0 commits"><span class="t"></span></li>
+<li tabindex="0" aria-label="Mar 2024: 0 commits" data-tip="Mar 2024: 0 commits"><span class="t"></span></li>
+<li tabindex="0" aria-label="Apr 2024: 0 commits" data-tip="Apr 2024: 0 commits"><span class="t"></span></li>
+<li tabindex="0" aria-label="May 2024: 0 commits" data-tip="May 2024: 0 commits"><span class="t"></span></li>
+<li tabindex="0" aria-label="Jun 2024: 9 commits" data-tip="Jun 2024: 9 commits" class=on><span class="bar" style="height:2.03%"></span><span class="t"></span><span class="ph">2</span></li>
+<li tabindex="0" aria-label="Jul 2024: 6 commits" data-tip="Jul 2024: 6 commits" class=on><span class="bar" style="height:1.35%"></span><span class="t"></span></li>
+<li tabindex="0" aria-label="Aug 2024: 0 commits" data-tip="Aug 2024: 0 commits"><span class="t"></span></li>
+<li tabindex="0" aria-label="Sep 2024: 0 commits" data-tip="Sep 2024: 0 commits"><span class="t"></span></li>
+<li tabindex="0" aria-label="Oct 2024: 0 commits" data-tip="Oct 2024: 0 commits"><span class="t"></span></li>
+<li tabindex="0" aria-label="Nov 2024: 26 commits" data-tip="Nov 2024: 26 commits" class=on><span class="bar" style="height:5.86%"></span><span class="t"></span><span class="ph">3</span></li>
+<li tabindex="0" aria-label="Dec 2024: 0 commits" data-tip="Dec 2024: 0 commits"><span class="t"></span></li>
+<li tabindex="0" aria-label="Jan 2025: 0 commits" data-tip="Jan 2025: 0 commits"><span class="t">2025</span></li>
+<li tabindex="0" aria-label="Feb 2025: 0 commits" data-tip="Feb 2025: 0 commits"><span class="t"></span></li>
+<li tabindex="0" aria-label="Mar 2025: 0 commits" data-tip="Mar 2025: 0 commits"><span class="t"></span></li>
+<li tabindex="0" aria-label="Apr 2025: 0 commits" data-tip="Apr 2025: 0 commits"><span class="t"></span></li>
+<li tabindex="0" aria-label="May 2025: 0 commits" data-tip="May 2025: 0 commits"><span class="t"></span></li>
+<li tabindex="0" aria-label="Jun 2025: 0 commits" data-tip="Jun 2025: 0 commits"><span class="t"></span></li>
+<li tabindex="0" aria-label="Jul 2025: 0 commits" data-tip="Jul 2025: 0 commits"><span class="t"></span></li>
+<li tabindex="0" aria-label="Aug 2025: 0 commits" data-tip="Aug 2025: 0 commits"><span class="t"></span></li>
+<li tabindex="0" aria-label="Sep 2025: 43 commits" data-tip="Sep 2025: 43 commits" class=on><span class="bar" style="height:9.68%"></span><span class="t"></span></li>
+<li tabindex="0" aria-label="Oct 2025: 36 commits" data-tip="Oct 2025: 36 commits" class=on><span class="bar" style="height:8.11%"></span><span class="t"></span><span class="ph">4</span></li>
+<li tabindex="0" aria-label="Nov 2025: 40 commits" data-tip="Nov 2025: 40 commits" class=on><span class="bar" style="height:9.01%"></span><span class="t"></span></li>
+<li tabindex="0" aria-label="Dec 2025: 9 commits" data-tip="Dec 2025: 9 commits" class=on><span class="bar" style="height:2.03%"></span><span class="t"></span></li>
+<li tabindex="0" aria-label="Jan 2026: 0 commits" data-tip="Jan 2026: 0 commits"><span class="t">2026</span></li>
+<li tabindex="0" aria-label="Feb 2026: 0 commits" data-tip="Feb 2026: 0 commits"><span class="t"></span></li>
+<li tabindex="0" aria-label="Mar 2026: 0 commits" data-tip="Mar 2026: 0 commits"><span class="t"></span></li>
+<li tabindex="0" aria-label="Apr 2026: 0 commits" data-tip="Apr 2026: 0 commits"><span class="t"></span></li>
+<li tabindex="0" aria-label="May 2026: 0 commits" data-tip="May 2026: 0 commits"><span class="t"></span></li>
+<li tabindex="0" aria-label="Jun 2026: 0 commits" data-tip="Jun 2026: 0 commits"><span class="t"></span></li>
+<li tabindex="0" aria-label="Jul 2026: 444 commits" data-tip="Jul 2026: 444 commits" class=on><span class="v">444</span><span class="bar" style="height:100.00%"></span><span class="t"></span><span class="ph">5</span></li>
+<li tabindex="0" aria-label="Aug 2026: 193 commits" data-tip="Aug 2026: 193 commits" class=on><span class="v">193</span><span class="bar" style="height:43.47%"></span><span class="t"></span></li>
+    </ol>
+    <ol class="phases">
+      <li><span class="n">1</span><b>Late 2023</b><span class="d">Canvas, frames, nesting, layers.</span></li>
+      <li><span class="n">2</span><b>Summer 2024</b><span class="d">Text editing, multiplayer, live cursors.</span></li>
+      <li><span class="n">3</span><b>November 2024</b><span class="d">Snapping and alignment guides.</span></li>
+      <li><span class="n">4</span><b>Autumn 2025</b><span class="d">AI editing, undo, Figma import, autolayout, components.</span></li>
+      <li><span class="n">5</span><b>Summer 2026</b><span class="d">Vectors, comments, export, share links, the streaming agent.</span></li>
+    </ol>
+  </figure>
+
+  <nav class="next" aria-label="More projects">
+    <p class="mono">Next project</p>
+    <a href="./feelinggood">Feeling Good →</a>
+  </nav>
+</div>
+</main>
+
+<footer class="foot wrap">
+  <div class="top">
+    <p class="mono">If you're building a design tool, a creative product or anything where design and engineering have to be the same conversation, I'd like to hear about it.</p>
+    <ul class="soc mono">
+      <li><a href="https://www.linkedin.com/in/justin-comstock/" rel="noopener">Linkedin</a></li>
+      <li><a href="https://dribbble.com/justincomstock" rel="noopener">Dribbble</a></li>
+    </ul>
+  </div>
+  <p class="name">Justin Comstock</p>
+  <div class="bot mono">
+    <a href="../projects">All projects</a>
+    <a class="plain" href="#top">↑ Back to top</a>
+    <a class="plain" href="mailto:hello@justincomstock.com">→ hello@justincomstock.com</a>
+  </div>
+</footer>
+
+<script>
+document.getElementById("theme").addEventListener("click", function () {
+  var d = document.documentElement, next = d.getAttribute("data-theme") === "dark" ? "light" : "dark";
+  d.setAttribute("data-theme", next);
+  try { localStorage.setItem("jc-theme", next); } catch (e) {}
+});
+</script>
+</body>
+</html>

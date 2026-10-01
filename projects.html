@@ -56,6 +56,79 @@
   ["pushState", "replaceState"].forEach(function(k){ var o = history[k]; history[k] = function(){ var r = o.apply(this, arguments); go(); return r; }; });
   addEventListener("popstate", go);
   document.addEventListener("DOMContentLoaded", function(){ ready = true; sweep(document); });
+})();</script><script id="hex-case-cards">(function(){
+  var CASES = [{"slug": "divine", "title": "Divine", "tags": "Product, Design, Engineering", "year": "/ 2026", "img": "/_assets/divine/app-icon.png", "fit": "contain", "bg": "#000"}, {"slug": "hex-agent", "title": "Hex", "tags": "Product, AI agent", "year": "/ 2026", "img": "/_assets/hex-agent/widget-calm.webp", "fit": "cover", "bg": "#06080c"}];
+  var MARK = "data-hex-case", io = null;
+  function hydrated(el){ for (var k in el) if (k.indexOf("__reactFiber") === 0) return true; return false; }
+  function texts(a){ return a.querySelectorAll(".framer-text"); }
+  function fill(a, c, home){
+    a.setAttribute("href", "/projects/" + c.slug); a.removeAttribute("target"); a.setAttribute(MARK + "-link", c.slug);
+    var t = texts(a);
+    if (home) { t[0].textContent = c.title; t[1].textContent = c.year; }
+    else { t[0].textContent = c.title; t[1].textContent = c.tags; t[2].textContent = c.year; }
+    var img = a.querySelector("img"), box = a.querySelector('[data-framer-name="Image"]');
+    if (img) {
+      img.removeAttribute("srcset"); img.removeAttribute("sizes"); img.removeAttribute("width"); img.removeAttribute("height");
+      img.setAttribute("alt", ""); img.style.objectFit = c.fit || "cover"; img.style.background = c.bg || "transparent";
+      img.setAttribute("src", c.img);
+    }
+    if (box) {
+      box.style.transition = "opacity .5s ease";
+      if (home) { box.style.opacity = "0.3"; watch(box); }
+      else {
+        box.style.opacity = "0";
+        a.addEventListener("mouseenter", function(){ a.classList.add("hover"); box.style.opacity = "1"; });
+        a.addEventListener("mouseleave", function(){ a.classList.remove("hover"); box.style.opacity = "0"; });
+      }
+    }
+  }
+  function watch(box){
+    if (!("IntersectionObserver" in window)) { box.style.opacity = "1"; return; }
+    io = io || new IntersectionObserver(function(es){ es.forEach(function(e){ e.target.style.opacity = e.isIntersecting ? "1" : "0.3"; }); }, { threshold: 0.25 });
+    io.observe(box);
+  }
+  function settle(el){ el.style.opacity = "1"; el.style.transform = "none"; }
+  function sweep(){
+    var list = null, lists = document.querySelectorAll('[data-framer-name="Projects"]');
+    for (var i = 0; i < lists.length && !list; i++) if (lists[i].offsetParent && lists[i].querySelector("a[href]")) list = lists[i];
+    var mine = document.querySelectorAll("[" + MARK + "]");
+    if (!list) { mine.forEach(function(n){ n.remove(); }); return; }
+    var a0 = null, as = list.querySelectorAll("a[href]:not([" + MARK + "-link])");
+    for (i = 0; i < as.length && !a0; i++) if (as[i].offsetParent) a0 = as[i];
+    if (!a0 || !hydrated(a0)) return;
+    var home = !!a0.closest('[data-framer-name="Projects list"]'), tpl, sig;
+    if (home) {
+      var groups = list.querySelectorAll('[data-framer-name="Projects list"]:not([' + MARK + '])');
+      for (i = groups.length - 1; i >= 0 && !tpl; i--) {
+        var n = 0; groups[i].querySelectorAll("a[href]").forEach(function(a){ if (a.offsetParent) n++; });
+        if (n === CASES.length) tpl = groups[i];
+      }
+      if (!tpl) return;
+    } else {
+      tpl = a0; while (tpl.parentElement && tpl.parentElement !== list && tpl.parentElement.querySelectorAll("a[href]:not([" + MARK + "-link])").length < 2) tpl = tpl.parentElement;
+    }
+    sig = (home ? "h" : "r") + "|" + tpl.className + "|" + a0.className.replace(/\bhover\b/, "");
+    if (mine.length && mine[0].getAttribute(MARK) === sig && mine[0].parentElement === (home ? list : tpl.parentElement)) return;
+    mine.forEach(function(n){ n.remove(); });
+    if (home) {
+      var g = tpl.cloneNode(true); g.setAttribute(MARK, sig); settle(g);
+      var k = 0; g.querySelectorAll("a[href]").forEach(function(a){ if (k < CASES.length) fill(a, CASES[k++], true); });
+      list.insertBefore(g, list.querySelector('[data-framer-name="Projects list"]'));
+    } else {
+      var first = tpl;
+      while (first.previousElementSibling) first = first.previousElementSibling;
+      CASES.forEach(function(c){
+        var r = tpl.cloneNode(true); r.setAttribute(MARK, sig); settle(r);
+        var a = r.matches("a[href]") ? r : r.querySelector("a[href]"); a.classList.remove("hover"); fill(a, c, false);
+        tpl.parentElement.insertBefore(r, first);
+      });
+    }
+  }
+  var queued = false;
+  function later(){ if (queued) return; queued = true; setTimeout(function(){ queued = false; try { sweep(); } catch (e) {} }, 60); }
+  new MutationObserver(later).observe(document.documentElement, { childList: true, subtree: true });
+  addEventListener("resize", later); addEventListener("load", later);
+  var n = 0, iv = setInterval(function(){ later(); if (++n > 80) clearInterval(iv); }, 250);
 })();</script>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
