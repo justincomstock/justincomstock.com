@@ -296,7 +296,7 @@ button{font:inherit;color:inherit}
   .intro{min-height:0}
   .photo{grid-column:span 12;aspect-ratio:16/10;min-height:0;grid-row:auto}
   .since,.build{grid-column:span 6}
-  .proj.case,.pgrid.n5 .proj.case:nth-child(n+4){grid-column:span 12}
+  .proj.case,.pgrid.n4 .proj.case,.pgrid.n5 .proj.case:nth-child(n+4){grid-column:span 12}
   .pgrid .proj.case .pi{aspect-ratio:16/10!important}
   .proj.shot{grid-column:span 6}
   .ab-top,.ab-facts{grid-template-columns:1fr}
