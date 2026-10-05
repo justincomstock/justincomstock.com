@@ -1,64 +1,17 @@
-// Shared by the three designs. Small on purpose: arrive-on-scroll, the reading bar, the nav settling, a count-up,
-// the light that follows the pointer (B), looping clips that respect reduced motion, the pointer preview on the editorial index (A), and the chapter rail on the cinematic one (C).
+// Shared by the three designs. Small on purpose: arrive-on-scroll, the reading bar, looping clips that respect
+// reduced motion, the pointer preview on the editorial index (A), and the chapter rail on the cinematic one (C).
 (function () {
   var d = document, root = d.documentElement, still = matchMedia("(prefers-reduced-motion: reduce)").matches;
-  var fine = matchMedia("(hover: hover) and (pointer: fine)").matches;
-
-  // Arrive on scroll. Only what is still below the screen right now is set to wait (.w), so nothing a visitor can
-  // already see is ever hidden, and with no script, no IntersectionObserver or reduced motion everything is just there.
-  // Things that come into view together land one after another (--d); once landed the classes are cleared again.
-  // In a case study a section itself never waits (its label and rule stay put); the pieces inside it arrive.
-  var rv = [].slice.call(d.querySelectorAll(".rv, .sh, .foot-k, .foot-mail, .ab-facts > div, .xp-free, .cs-body > *:not(.sec), .cs-body .sec > *:not(.lab), .cnext"));
-  [].forEach.call(d.querySelectorAll(".cs-body .chart li"), function (li, i) { li.style.setProperty("--i", i); });
-  if ("IntersectionObserver" in window && !still) {
-    var vh = innerHeight, wait = rv.filter(function (el) { return el.getBoundingClientRect().top > vh * 0.96; });
+  var rv = [].slice.call(d.querySelectorAll(".rv, .cs-body > *, .cs-body .sec > *:not(.lab)"));
+  rv.forEach(function (el) { el.classList.add("rv"); });
+  if (!("IntersectionObserver" in window) || still) rv.forEach(function (el) { el.classList.add("in"); });
+  else {
     var io = new IntersectionObserver(function (es) {
-      var n = 0;
-      es.forEach(function (e) {
-        if (!e.isIntersecting) return;
-        var el = e.target; io.unobserve(el);
-        if (n) el.style.setProperty("--d", Math.min(n, 5) * 70 + "ms");
-        n++;
-        el.classList.add("in"); count(el);
-        setTimeout(function () { el.classList.remove("w", "in"); el.style.removeProperty("--d"); }, 2200);
-      });
-    }, { rootMargin: "0px 0px -4% 0px", threshold: 0 });
-    wait.forEach(function (el) { el.classList.add("rv", "w"); io.observe(el); });
+      es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } });
+    }, { rootMargin: "0px 0px -8% 0px", threshold: 0.05 });
+    rv.forEach(function (el) { io.observe(el); });
   }
   window.jcReady = true;
-
-  // The live Dribbble figures count up once as they arrive (only if they were below the screen: a number already
-  // read is never rewritten). The real text stays in the page; width is held so nothing around it moves.
-  function count(box) {
-    [].forEach.call(box.querySelectorAll(".dn b"), function (b) {
-      var full = b.textContent, m = /^(\D*)(\d[\d,]*)(\.\d+)?(.*)$/.exec(full); if (!m) return;
-      var to = parseFloat(m[2].replace(/,/g, "") + (m[3] || "")), dec = m[3] ? m[3].length - 1 : 0, t0 = 0;
-      if (!(to > 20)) return;
-      b.style.display = "inline-block"; b.style.minWidth = b.getBoundingClientRect().width + "px"; b.style.fontVariantNumeric = "tabular-nums";
-      b.setAttribute("aria-label", full);
-      function step(t) {
-        if (!t0) t0 = t;
-        var k = Math.min(1, (t - t0) / 1100), v = to * (1 - Math.pow(1 - k, 4));
-        if (k < 1) { b.textContent = m[1] + (dec ? v.toFixed(dec) : Math.round(v).toLocaleString("en-US")) + m[4]; requestAnimationFrame(step); }
-        else { b.textContent = full; b.style.minWidth = ""; }
-      }
-      requestAnimationFrame(step);
-    });
-  }
-
-  // B, desktop pointer only: tell the card under the cursor where the cursor is, for the soft light inside it
-  if (fine && !still && d.body.classList.contains("t-b")) {
-    var px = 0, py = 0, tg = null, pr = 0, SEL = ".card, .phead, .chead, .ab-top > div, .ab-facts > div, .ab-hi li, .foot .wrap";
-    addEventListener("pointermove", function (e) {
-      px = e.clientX; py = e.clientY; tg = e.target;
-      if (!pr) pr = requestAnimationFrame(function () {
-        pr = 0;
-        var c = tg && tg.closest && tg.closest(SEL); if (!c) return;
-        var r = c.getBoundingClientRect();
-        c.style.setProperty("--mx", (px - r.left).toFixed(0) + "px"); c.style.setProperty("--my", (py - r.top).toFixed(0) + "px");
-      });
-    }, { passive: true });
-  }
 
   var bar = d.querySelector(".prog"), top = d.querySelector(".top"), tick = false;
   function onScroll() {
