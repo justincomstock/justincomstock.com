@@ -75,6 +75,7 @@ button{font:inherit;color:inherit}
 .cs-body .pair img,.cs-body .trio img{width:100%;border-radius:calc(var(--r)*.7);border:1px solid var(--line)}
 .cs-body .pair figure,.cs-body .trio figure{margin:0}
 .cs-body .more,.cs-body .disclaimer{color:var(--mut);padding:8px 0 0;max-width:80ch}
+.cs-body .more .arr{display:inline-block;vertical-align:baseline}
 .cs-body .disclaimer{border-top:1px solid var(--line);padding-top:24px;line-height:1.6}
 /* Divine's diagrams */
 .cs-body .panel,.cs-body .chartwrap{background:var(--card);border:1px solid var(--line);border-radius:calc(var(--r)*1.2);padding:clamp(20px,3.5vw,48px)}
