@@ -315,3 +315,12 @@ button{font:inherit;color:inherit}
 .dn b{font-size:clamp(24px,2.1vw,32px);font-weight:600;letter-spacing:-.035em;color:var(--fg);margin-right:.2em}
 .drib .sm{font-size:14px}
 @media (max-width:1100px){.drib.card{grid-column:1/-1}}
+/* Experience page: the freelance spotlight card (this is the role that most needs its own room) */
+.xp-free{display:grid;gap:10px;align-content:start}
+.xp-free>.mono{color:var(--mut)}
+.xp-free-h{font-family:var(--f-display);font-size:clamp(26px,2.4vw,36px);line-height:1.15;letter-spacing:-.02em;font-weight:var(--w-display,600)}
+.xp-free-lede{font-size:clamp(16px,1.3vw,19px);line-height:1.5;max-width:62ch}
+.xp-free .sm{max-width:62ch}
+/* four things in the nav on a narrow phone: let it scroll sideways rather than wrap */
+.top nav{overflow-x:auto;min-width:0;scrollbar-width:none;-ms-overflow-style:none}
+.top nav::-webkit-scrollbar{display:none}
