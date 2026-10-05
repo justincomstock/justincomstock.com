@@ -191,6 +191,7 @@ button{font:inherit;color:inherit}
 .proj{padding:8px;display:flex;flex-direction:column;transition:transform .35s cubic-bezier(.2,.7,.2,1),box-shadow .35s}
 .proj.case{grid-column:span 4}
 .pgrid.n5 .proj.case:nth-child(n+4){grid-column:span 6}
+.pgrid.n4 .proj.case{grid-column:span 6}
 .proj.shot{grid-column:span 2}
 .pi{display:block;border-radius:calc(var(--R) - 8px);overflow:hidden;aspect-ratio:16/10;background:var(--bg)}
 .proj.shot .pi{aspect-ratio:4/3}
@@ -305,7 +306,7 @@ button{font:inherit;color:inherit}
   .brand span:not(.mk){display:none}
 }
 @media (max-width:480px){.mail .full{display:none}.mail .short{display:inline}.meta{grid-template-columns:1fr}.cnext{grid-template-columns:1fr}.ab-hi ol{grid-template-columns:1fr}}
-@media (min-width:2000px){:root{--max:2100px}.proj.case,.pgrid.n5 .proj.case:nth-child(n+4){grid-column:span 4}.pgrid.n5{grid-template-columns:repeat(20,minmax(0,1fr))}.pgrid.n5 .proj.shot{grid-column:span 3}.pgrid.n5 .proj.shot:nth-last-child(-n+2){grid-column:span 4}}
+@media (min-width:2000px){:root{--max:2100px}.pgrid.n4 .proj.case{grid-column:span 3}.proj.case,.pgrid.n5 .proj.case:nth-child(n+4){grid-column:span 4}.pgrid.n5{grid-template-columns:repeat(20,minmax(0,1fr))}.pgrid.n5 .proj.shot{grid-column:span 3}.pgrid.n5 .proj.shot:nth-last-child(-n+2){grid-column:span 4}}
 /* Dribbble: his public numbers, read when the site is built */
 .drib.card{grid-column:span 5;padding-block:18px;display:grid;gap:6px;align-content:center}
 .drib>.mono{display:flex;justify-content:space-between;gap:12px;font-size:12.5px;color:var(--mut)}
