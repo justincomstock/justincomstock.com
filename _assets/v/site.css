@@ -595,3 +595,10 @@ button{font:inherit;color:inherit}
   .card:hover::before,.phead:hover::before,.chead:hover::before,.ab-top>div:hover::before,.ab-facts>div:hover::before,.ab-hi li:hover::before,.foot .wrap:hover::before{opacity:1}
   .since,.foot .wrap{--glow:rgba(255,255,255,.2)}
 }
+/* The JC monogram in the nav. It is drawn as a mask over the ink, so it follows the hover colour; the letters stay in
+   the markup and show in their circle wherever masks are not supported. */
+@supports ((-webkit-mask-image:url(logos/jc/jc-mark.svg)) or (mask-image:url(logos/jc/jc-mark.svg))){
+  .mk{width:31px;height:36px;border-radius:0;color:transparent;-webkit-mask:url(logos/jc/jc-mark.svg) center/contain no-repeat;mask:url(logos/jc/jc-mark.svg) center/contain no-repeat}
+  .brand:hover .mk{transform:scale(1.06)}
+  @media (max-width:340px){.top .mk{width:26px;height:30px}}
+}
