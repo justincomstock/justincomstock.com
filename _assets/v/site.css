@@ -318,9 +318,9 @@ button{font:inherit;color:inherit}
 .photo p span{color:var(--mut)}
 .since,.build{grid-column:span 3;display:flex;flex-direction:column;justify-content:space-between;gap:8px}
 .since{background:var(--acc);color:#fff}
-.since .mono,.since .sm{color:rgba(255,255,255,.82)}
+.since .mono,.since .sm{color:rgba(255,255,255,.94)}
 .card>.mono:first-child{font-size:12.5px;color:var(--mut)}
-.since>.mono:first-child{color:rgba(255,255,255,.82)}
+.since>.mono:first-child{color:rgba(255,255,255,.94)}
 .big{font-size:clamp(56px,6.4vw,104px);line-height:.9;letter-spacing:-.05em;font-weight:600}
 .mid{font-size:clamp(22px,2vw,30px);line-height:1.08;letter-spacing:-.03em;font-weight:600}
 .sm{font-size:14.5px;color:var(--mut);line-height:1.4}
@@ -446,7 +446,7 @@ button{font:inherit;color:inherit}
   .ab-photos{grid-template-columns:1fr 1fr}
   .xl li{grid-template-columns:1fr}
   .xy{grid-row:auto}
-  .brand span:not(.mk){display:none}
+  .brand span:not(.mk){position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 }
 @media (max-width:480px){.mail .full{display:none}.mail .short{display:inline}.meta{grid-template-columns:1fr}.cnext{grid-template-columns:1fr}.ab-hi ol{grid-template-columns:1fr}}
 @media (min-width:2000px){:root{--max:2100px}.pgrid.n4 .proj.case{grid-column:span 3}.proj.case,.pgrid.n5 .proj.case:nth-child(n+4){grid-column:span 4}.pgrid.n5{grid-template-columns:repeat(20,minmax(0,1fr))}.pgrid.n5 .proj.shot{grid-column:span 3}.pgrid.n5 .proj.shot:nth-last-child(-n+2){grid-column:span 4}}
