@@ -465,6 +465,13 @@ button{font:inherit;color:inherit}
 .xp-free-h{font-family:var(--f-display);font-size:clamp(26px,2.4vw,36px);line-height:1.15;letter-spacing:-.02em;font-weight:var(--w-display,600)}
 .xp-free-lede{font-size:clamp(16px,1.3vw,19px);line-height:1.5;max-width:62ch}
 .xp-free .sm{max-width:62ch}
+/* Experience page: three proofs above the timeline, and the way to reach him at the end */
+.xp-proof{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--g)}
+.xp-proof .card{display:flex;flex-direction:column;gap:10px}
+.xp-proof .mono{color:var(--mut)}
+.xp-proof .sm{margin-top:auto;padding-top:6px}
+.xp-end{margin-top:clamp(24px,3vw,40px)}
+@media (max-width:900px){.xp-proof{grid-template-columns:1fr}}
 /* four things in the nav on a narrow phone: let it scroll sideways rather than wrap */
 .top nav{overflow-x:auto;min-width:0;scrollbar-width:none;-ms-overflow-style:none}
 .top nav::-webkit-scrollbar{display:none}
