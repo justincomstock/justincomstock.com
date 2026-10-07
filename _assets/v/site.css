@@ -474,6 +474,14 @@ button{font:inherit;color:inherit}
 .pr span{color:var(--mut)}
 @media (max-width:700px){.pgrid.cs .proj.case{grid-column:span 12}}
 @media (min-width:2000px){.pgrid.cs .proj.case{grid-column:span 3}}
+/* an odd number of case studies: the last row holds three, so no card sits beside a gap (on a tablet the last one takes the row) */
+@media (min-width:901px) and (max-width:1999px){.pgrid.cs .proj.case:nth-last-child(3):nth-child(odd),.pgrid.cs .proj.case:nth-last-child(3):nth-child(odd)~.proj.case{grid-column:span 4}}
+@media (min-width:701px) and (max-width:900px){.pgrid.cs .proj.case:last-child:nth-child(odd){grid-column:span 12}.pgrid.cs .proj.case:last-child:nth-child(odd) .pi{aspect-ratio:21/9}}
+/* DisplaySplit: its hero clip has words in it, so it is never cropped, and a phone gets its own upright cut.
+   Two clips, one shown, so the right one is on screen at any width, including after a window is resized. */
+.c-displaysplit .chero video{max-height:none}
+.c-displaysplit .chero .vn{display:none}
+@media (max-width:640px){.c-displaysplit .chero .vw{display:none}.c-displaysplit .chero .vn{display:block}}
 /* five things in the nav: tighter on small screens so it fits without scrolling */
 .top nav a{white-space:nowrap}
 @media (max-width:900px){.top nav{font-size:14px}.top nav a{padding:8px 10px}}
