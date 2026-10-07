@@ -325,10 +325,22 @@ button{font:inherit;color:inherit}
 .mid{font-size:clamp(22px,2vw,30px);line-height:1.08;letter-spacing:-.03em;font-weight:600}
 .sm{font-size:14.5px;color:var(--mut);line-height:1.4}
 .proofc{grid-column:span 7;padding-block:18px;display:flex;align-items:center}
-.proof{display:flex;flex-wrap:wrap;align-items:center;gap:10px 28px}
-.proof p{color:var(--mut);font-size:12.5px}
-.proof ul{display:flex;flex-wrap:wrap;gap:8px}
-.proof li{border:1px solid var(--line);border-radius:99px;padding:6px 14px;font-weight:500;font-size:15px}
+.proof{display:flex;align-items:center;gap:clamp(16px,2vw,28px);width:100%;min-width:0}
+.proof p{color:var(--mut);font-size:12.5px;flex:none}
+/* Clients and teams: a strip of logos that drifts left. Two identical tracks sit side by side and each slides its own
+   width plus one gap, so the loop has no seam; the second is hidden from assistive tech. Hovering pauses it. With
+   reduced motion the strip stands still and wraps instead. */
+.lg{--lgap:clamp(34px,3.6vw,56px);flex:1;min-width:0;display:flex;gap:var(--lgap);overflow:hidden;padding-block:6px;-webkit-mask-image:linear-gradient(90deg,transparent,#000 9%,#000 91%,transparent);mask-image:linear-gradient(90deg,transparent,#000 9%,#000 91%,transparent)}
+.lg-track{flex:none;display:flex;align-items:center;justify-content:space-around;gap:var(--lgap);min-width:100%}
+.lg-track li{flex:none;display:flex;align-items:center;opacity:.72;transition:opacity var(--t1)}
+.lg-track li:hover{opacity:1}
+.lg-track img{height:var(--h);width:auto;max-width:none}
+.lg-w{font-weight:600;font-size:21px;line-height:1;letter-spacing:-.035em;white-space:nowrap}
+@keyframes lg-run{to{transform:translateX(calc(-100% - var(--lgap)))}}
+@media (prefers-reduced-motion:no-preference){.lg-track{animation:lg-run 38s linear infinite}.lg:hover .lg-track{animation-play-state:paused}}
+@media (prefers-reduced-motion:reduce){.lg{-webkit-mask-image:none;mask-image:none}.lg-track{flex:1 1 auto;min-width:0;flex-wrap:wrap;justify-content:flex-start;row-gap:16px}.lg-track[aria-hidden]{display:none}}
+@media (max-width:640px){.proof{flex-direction:column;align-items:flex-start;gap:12px}.lg{flex:none;width:100%}}
+.xp-logos{margin-bottom:var(--g)}
 /* every project in one grid */
 .pgrid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:var(--g)}
 .proj{padding:8px;display:flex;flex-direction:column;transition:transform .35s cubic-bezier(.2,.7,.2,1),box-shadow .35s}
